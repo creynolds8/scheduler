@@ -9,7 +9,9 @@ export default function useVisualMode(initial) {
     setHistory(prev => [...prev, newMode])
   }
   
-  function back() {}
+  function back() {
+    setHistory(prev => [...prev.slice(0, prev.length - 1)]) 
+  }
 
   return { mode: history[history.length - 1], transition, back };
 }
