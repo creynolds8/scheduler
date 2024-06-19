@@ -1,6 +1,3 @@
-const useVisualMode = function(mode) {
-  const results = { mode };
-  return results;
-};
-
-export default useVisualMode;
+export default function useVisualMode(initial) {
+  return { mode: initial };
+}
