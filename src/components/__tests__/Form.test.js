@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup, fireEvent, getByText } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 
@@ -32,6 +32,11 @@ describe("Form", () => {
   //test to finish building
   it("validates that the student name is not blank", () => {
     /* 1. validation is shown */
+    const onSave = jest.fn();
+    const { getByText } = render(
+      <Form onSave={onSave} interviewers={interviewers} />
+    );
+    fireEvent.click(getByText("Save"));
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
 
     /* 2. onSave is not called */
