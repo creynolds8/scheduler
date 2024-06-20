@@ -46,8 +46,15 @@ describe("Form", () => {
   it("validates that the interviewer cannot be null", () => {
     /* 3. validation is shown */
     const onSave = jest.fn();
-    const { getByText } = render(<Form onSave={onSave} interviewers={interviewers} name={"Cam"} interviewer={null} />)
-    fireEvent.click(getByText("Save"))
+    const { getByText } = render(
+      <Form
+        onSave={onSave}
+        interviewers={interviewers}
+        name={"Cam"}
+        interviewer={null}
+      />
+    );
+    fireEvent.click(getByText("Save"));
     expect(getByText(/please select an interviewer/i)).toBeInTheDocument();
 
     /* 4. onSave is not called */
@@ -55,6 +62,18 @@ describe("Form", () => {
   });
 
   it("calls onSave function when the name is defined", () => {
+    const onSave = jest.fn();
+    const { getByText, queryByText } = render(
+      <Form
+        interviewers={interviewers}
+        onSave={onSave}
+        name="Lydia Miller-Jones"
+        interviewer={interviewers[0].id}
+      />
+    );
+
+    fireEvent.click(getByText("Save"));
+
     /* 5. validation is not shown */
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
     expect(queryByText(/please select an interviewer/i)).toBeNull();
