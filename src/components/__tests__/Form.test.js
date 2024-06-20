@@ -45,6 +45,9 @@ describe("Form", () => {
 
   it("validates that the interviewer cannot be null", () => {
     /* 3. validation is shown */
+    const onSave = jest.fn();
+    const { getByText } = render(<Form onSave={onSave} interviewers={interviewers} name={"Cam"} interviewer={null} />)
+    fireEvent.click(getByText("Save"))
     expect(getByText(/please select an interviewer/i)).toBeInTheDocument();
 
     /* 4. onSave is not called */
